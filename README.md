@@ -19,12 +19,16 @@ Crypto uses Binance's public market data endpoints and does not need a key. Stoc
 - Crypto: BTC, ETH, BNB, SOL, XRP against USDT · M15.
 - XAU/USD: M5 only, for the requested scalping workflow.
 
-The screener calculates EMA 9/21 and RSI 14 from returned candles. Price and signal rows remain empty when a provider cannot return data; the page never substitutes generated/demo prices.
+The screener calculates EMA 9/21, RSI 14, and ATR 14 from returned candles. Click an instrument row to select it in the built-in canvas candlestick chart. The chart overlays EMA 9/21 and the active entry, stop, and target levels. Live ticks update the active candle; new M5/M15 candles are created at interval boundaries. WebSocket connections retry after disconnect. No charting library or TradingView component is used.
+
+When EMA/RSI conditions produce BUY or SELL, the entry reference is the latest feed price. The indicative stop is 1.5 × ATR(14) from entry and the target is 3 × ATR(14), a nominal 1:2 risk/reward distance before spread and execution costs. WAIT shows no trade levels. ATR is a volatility measure derived from true range, which includes the current high/low and previous close. These are example rule-based levels, not personalized trade instructions. See [True Range formula](https://chartschool.stockcharts.com/table-of-contents/technical-indicators-and-overlays/technical-indicators/true-range).
+
+Price, chart, and signal rows remain empty when a provider cannot return data; the page never substitutes generated/demo prices.
 
 ## Real-time and licensing notes
 
 Real-time availability depends on the data provider, account plan, symbol, exchange, and market-data permissions. Twelve Data documents real-time WebSocket quotes, while its current stock-market listing identifies Indonesia as EOD/delayed on its international coverage. Public IDX display also has licensing restrictions: the IDX terms say internet display of real-time IDX data is restricted to authorized users, and public display without that access is to be delayed/EOD. Therefore this site labels the Indonesia feed as provider/delay-dependent and does not claim public IDX real-time data. Arrange an authorized real-time feed and user access with IDX or a licensed vendor if that is required.
 
-Binance crypto streaming is real-time exchange data for those Binance spot pairs, not a consolidated price across all crypto exchanges. XAU/USD is the provider's gold spot quote and may differ from a broker's CFD quote. A static GitHub Pages site cannot keep provider API credentials secret from the browser user; the key is stored locally per browser, not included in the public site files.
+Binance crypto streaming is real-time exchange data for those Binance spot pairs, not a consolidated price across all crypto exchanges. XAU/USD is the provider's gold spot quote and may differ from a broker's CFD quote. Real-time updates require an active WebSocket subscription and available provider quota/entitlements. A static GitHub Pages site cannot keep provider API credentials secret from the browser user; the key is stored locally per browser, not included in the public site files.
 
 Sinyal bersifat informasional, bukan rekomendasi atau jaminan hasil trading. Perhatikan spread, slippage, jam perdagangan, lisensi data, dan risiko.
