@@ -19,11 +19,13 @@ Crypto uses Binance's public market data endpoints and does not need a key. Stoc
 - Crypto: BTC, ETH, BNB, SOL, XRP against USDT · M15.
 - XAU/USD: M5 only, for the requested scalping workflow.
 
-The screener calculates EMA 9/21, RSI 14, and ATR 14 from returned candles. Click an instrument row to select it in the built-in canvas candlestick chart. The chart overlays EMA 9/21 and the active entry, stop, and target levels. Live ticks update the active candle; new M5/M15 candles are created at interval boundaries. WebSocket connections retry after disconnect. No charting library or TradingView component is used.
+The screener calculates EMA 9/21, RSI 14, and ATR 14 from returned candles. Click an instrument row to select it in the built-in canvas candlestick chart. The chart overlays EMA 9/21 and the active entry, stop, and target levels. Live ticks update the active candle; new M5/M15 candles are created at interval boundaries. WebSocket connections retry after disconnect. Auto update is enabled by default: if an individual symbol receives no stream tick for 45 seconds, the site refreshes one stale symbol's latest price through the provider API at most once every 30 seconds, rotating through the current market list. This is a fallback; the provider's entitlement and delay still determine how current the returned price is. No charting library or TradingView component is used.
 
 When EMA/RSI conditions produce BUY or SELL, the entry reference is the latest feed price. The indicative stop is 1.5 × ATR(14) from entry and the target is 3 × ATR(14), a nominal 1:2 risk/reward distance before spread and execution costs. WAIT shows no trade levels. ATR is a volatility measure derived from true range, which includes the current high/low and previous close. These are example rule-based levels, not personalized trade instructions. See [True Range formula](https://chartschool.stockcharts.com/table-of-contents/technical-indicators-and-overlays/technical-indicators/true-range).
 
 Price, chart, and signal rows remain empty when a provider cannot return data; the page never substitutes generated/demo prices.
+
+The REST fallback checks only one stale instrument every 30 seconds. Twelve Data documents the `/price` endpoint at one API credit per symbol, so fallback may use up to two API credits per minute while the stream is stale. The WebSocket remains the primary feed and does not trigger this REST fallback when ticks keep arriving.
 
 ## Real-time and licensing notes
 
