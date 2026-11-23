@@ -5,7 +5,7 @@ Static market screener for GitHub Pages. No Python server, build tools, or Tradi
 ## Publish on GitHub Pages
 
 1. Create a GitHub repository, for example `pratama-screening`.
-2. Upload `index.html`, `styles.css`, `app.js`, and this README to the repository root.
+2. Upload `index.html`, `styles.css`, `app.js`, `pratama-logo-icon.png` and `pratama-screening-logo.png`, and this README to the repository root.
 3. Open **Settings → Pages**. Under **Build and deployment**, choose **Deploy from a branch**, select `main` and `/(root)`, then save.
 4. Open the Pages URL GitHub shows after deployment.
 5. In the site, click **Data & API**, enter a Twelve Data API key, then choose **Simpan & sambungkan**.
